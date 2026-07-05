@@ -5,26 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.1] - 2026-07-05
+## [2.1.2] - 2026-07-05
+
+### Removed
+
+- Mencabut dan menghapus plugin animasi transisi **Animsition** beserta seluruh file CSS dan JS-nya secara permanen untuk meningkatkan kecepatan _loading_ dan stabilitas aplikasi.
+
 ### Fixed
+
+- Memperbaiki _bug_ layar memutih (_blank white screen_) yang kerap terjadi saat aplikasi dibuka melalui peramban mobile (seperti Chrome Android) akibat kegagalan eksekusi skrip dari plugin _Animsition_.
+
+## [2.1.1] - 2026-07-05
+
+### Fixed
+
 - Memperbaiki _logical bug_ pada _query_ penghitungan jumlah hari tidak presensi di halaman Dashboard User (mengubah `subMonth()->lastOfMonth()` menjadi `startOfMonth()->toDateString()`).
 
 ## [2.1.0] - 2026-07-05
+
 ### Added
-- Membuat desain *favicon* baru dengan latar belakang transparan.
+
+- Membuat desain _favicon_ baru dengan latar belakang transparan.
 
 ### Changed
-- Menghilangkan *header* judul halaman ganda dari tata letak utama (`app.blade.php`) untuk tampilan yang lebih lapang.
-- Mengubah format huruf kapital penuh pada tombol-tombol konfirmasi menjadi format *Proper Case* agar lebih rapi.
-- Mengubah (*redesign*) kotak dialog peringatan "Tetap Presensi" menjadi desain panel yang lebih modern lengkap dengan *Toggle Switch*.
+
+- Menghilangkan _header_ judul halaman ganda dari tata letak utama (`app.blade.php`) untuk tampilan yang lebih lapang.
+- Mengubah format huruf kapital penuh pada tombol-tombol konfirmasi menjadi format _Proper Case_ agar lebih rapi.
+- Mengubah (_redesign_) kotak dialog peringatan "Tetap Presensi" menjadi desain panel yang lebih modern lengkap dengan _Toggle Switch_.
 
 ### Fixed
-- Memperbaiki kerangka (layout) kolom pilihan Pegawai (Select Dropdown) pada filter data menggunakan `custom-select` di halaman Admin Presensi dan Formulir agar tampil penuh (*full-width*).
-- Memperbaiki *Stat Card* "Jumlah Akun" di halaman Dashboard Admin yang sebelumnya format HTML-nya rusak (tertinggal dari desain lama).
+
+- Memperbaiki kerangka (layout) kolom pilihan Pegawai (Select Dropdown) pada filter data menggunakan `custom-select` di halaman Admin Presensi dan Formulir agar tampil penuh (_full-width_).
+- Memperbaiki _Stat Card_ "Jumlah Akun" di halaman Dashboard Admin yang sebelumnya format HTML-nya rusak (tertinggal dari desain lama).
 - Memperbaiki kesalahan penulisan (typo) pada halaman "Generate Formulir Presensisi".
 
 ## [2.0.0] - 2026-07-05
+
 ### Changed
+
 - Merombak total desain antarmuka (UI) aplikasi menjadi lebih modern dan dinamis (Penambahan custom `redesign.css`).
 - Memperbaiki tata letak (layout) dan desain komponen Stat Cards di halaman Dashboard Admin dan User.
 - Mengganti gambar profil default (PNG lokal) dengan ikon SVG (FontAwesome).
@@ -35,41 +53,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Memperbarui dokumentasi (`README.md`) agar selaras dengan penggunaan istilah "Presensi".
 
 ## [1.1.1]
+
 ### Added
+
 - Menyelesaikan Penambahan Kolom "Nomor Identitas Pegawai / Nomor Registrasi Pegawai".
 
 ### Changed
+
 - Mengganti Template Word.
 
 ### Fixed
+
 - Memperbaiki Factory Untuk Model User.
 
 ## [1.1.0]
+
 ### Added
+
 - Menambahkan Satu Kolom Baru pada Tabel 'users'.
 
 ## [1.0.3]
+
 ### Added
+
 - Menambahkan Waktu Presensi Supaya Berjalan Pada Menu Presensi Datang dan Presensi Pulang.
 
 ### Changed
+
 - Membersihkan Kode.
 
 ## [1.0.2]
+
 ### Fixed
+
 - Memperbaiki Struktur Logika Presensi.
 
 ## [1.0.1]
+
 ### Added
+
 - Mempersiapkan Tampilan Untuk Tetap Presensi.
 
 ### Fixed
+
 - Memperbaiki Struktur Logika Presensi.
 
 ## [1.0.0]
+
 ### Added
+
 - Initial Version.
 
 ### Changed
+
 - Untrack File "composer.lock".
 - Mengganti Template Word.

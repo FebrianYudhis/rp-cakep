@@ -12,12 +12,11 @@
     <link href="{{ asset('vendor/fontawesome/all.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/app/css/redesign.css') }}" rel="stylesheet" media="all">
-    <link rel="stylesheet" href="{{ asset('vendor/app/css/animsition.min.css') }}">
 
     @yield('css')
 </head>
 
-<body class="animsition app-body">
+<body class="app-body">
     @include('sweetalert::alert')
     
     @php
@@ -102,19 +101,9 @@
     <script src="{{ asset('vendor/jquery/jquery-3.6.0.min.js') }}"></script>
     <!-- Bootstrap JS-->
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- Animsition JS -->
-    <script src="{{ asset('vendor/app/js/animsition.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-            // Initialize animsition
-            $(".animsition").animsition({
-                inClass: 'fade-in',
-                outClass: 'fade-out',
-                inDuration: 800,
-                outDuration: 500,
-            });
-            
             // Sidebar toggle logic
             $('#sidebarToggleBtn, #closeSidebarBtn').on('click', function(e) {
                 e.preventDefault();

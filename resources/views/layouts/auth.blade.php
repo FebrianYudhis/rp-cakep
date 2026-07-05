@@ -12,11 +12,9 @@
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome/all.min.css') }}">
     <link href="{{ asset('vendor/app/css/redesign.css') }}" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{{ asset('vendor/app/css/animsition.min.css') }}">
 </head>
 
-<body class="auth-page animsition">
+<body class="auth-page">
     @include('sweetalert::alert')
     
     <div class="auth-card">
@@ -43,18 +41,6 @@
 
     <script src="{{ asset('vendor/jquery/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendor/app/js/animsition.min.js') }}"></script>
-    
-    <script>
-        $(document).ready(function() {
-            $(".animsition").animsition({
-                inClass: 'fade-in',
-                outClass: 'fade-out',
-                inDuration: 1500,
-                outDuration: 800,
-            });
-        });
-    </script>
 </body>
 
 </html>
