@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAbsentsTable extends Migration
+class CreatePresensiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAbsentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('absents', function (Blueprint $table) {
+        Schema::create('presensi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->date('tanggal');
@@ -29,6 +29,6 @@ class CreateAbsentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absents');
+        Schema::dropIfExists('presensi');
     }
 }

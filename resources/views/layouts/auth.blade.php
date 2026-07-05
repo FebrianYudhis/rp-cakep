@@ -10,23 +10,31 @@
 
     <title>{{ $judul }} - {{ env('APP_NAME') }}</title>
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/app/css/theme.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ asset('vendor/fontawesome/all.min.css') }}">
+    <link href="{{ asset('vendor/app/css/redesign.css') }}" rel="stylesheet">
+    
     <link rel="stylesheet" href="{{ asset('vendor/app/css/animsition.min.css') }}">
-
 </head>
 
-<body class="bg-secondary animsition">
+<body class="auth-page animsition">
     @include('sweetalert::alert')
-    <div class="container">
-        <div class="login-wrap">
-            <div class="login-content">
-                <div class="login-logo">
-                    <a href="#">
-                        <img src="{{ asset('images/logo/logo.png') }}" alt="Cakep Logo">
-                    </a>
+    
+    <div class="auth-card">
+        <div class="row g-0 h-100">
+            <div class="col-md-5 d-none d-md-block">
+                <div class="auth-logo-container">
+                    <div class="text-center">
+                        <img src="{{ asset('images/logo/logo.png') }}" alt="Cakep Logo" class="img-fluid mb-4" style="max-height: 120px;">
+                        <h4 class="text-white font-weight-bold">{{ env('APP_NAME', 'Aplikasi Presensi') }}</h4>
+                        <p class="text-white-50 small mb-0">Aplikasi Catatan Kehadiran Pegawai<br>BMKG Kotim</p>
+                    </div>
                 </div>
-                <div class="login-form">
+            </div>
+            <div class="col-md-7 d-flex align-items-center">
+                <div class="auth-form-container w-100">
+                    <div class="text-center d-block d-md-none mb-4">
+                        <img src="{{ asset('images/logo/logo.png') }}" alt="Cakep Logo" class="img-fluid" style="max-height: 80px;">
+                    </div>
                     @yield('konten')
                 </div>
             </div>
@@ -35,11 +43,18 @@
 
     <script src="{{ asset('vendor/jquery/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
     <script src="{{ asset('vendor/app/js/animsition.min.js') }}"></script>
-
-    <script src="{{ asset('vendor/app/js/main.js') }}"></script>
-
+    
+    <script>
+        $(document).ready(function() {
+            $(".animsition").animsition({
+                inClass: 'fade-in',
+                outClass: 'fade-out',
+                inDuration: 1500,
+                outDuration: 800,
+            });
+        });
+    </script>
 </body>
 
 </html>

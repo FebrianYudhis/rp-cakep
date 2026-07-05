@@ -1,21 +1,75 @@
 @extends('layouts.app')
 
-@push('styles')
+@section('css')
 <link rel="stylesheet" href="{{ asset('vendor/datatables/datatables.min.css') }}">
-@endpush
+@endsection
 
-@push('scripts')
+@section('konten')
+<div class="alert alert-info border-0 shadow-sm rounded mb-4 pb-2 pt-3 px-4 d-flex align-items-center">
+    <i class="fas fa-info-circle fa-2x text-info mr-3"></i>
+    <div>
+        <h6 class="font-weight-bold mb-1">Informasi Penting</h6>
+        <p class="mb-0 small text-muted">Mohon perhatikan kembali tanggal shift seBelum Presensi. Jika ada kendala dengan aplikasi, silahkan hubungi administrator.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="stat-card stat-primary">
+            <div class="icon">
+                <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <div class="number">{{ $presensidatang }}</div>
+            <div class="desc">Belum Presensi Datang (Bulan Ini)</div>
+            <a href="{{ route('user.presensi.datang') }}" class="btn btn-light btn-sm mt-3 w-100 font-weight-bold rounded-pill text-primary" style="position: relative; z-index: 2;">
+                <i class="fas fa-fingerprint mr-2"></i> Presensi Datang
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="stat-card stat-success">
+            <div class="icon">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <div class="number">{{ $presensipulang }}</div>
+            <div class="desc">Belum Presensi Pulang (Bulan Ini)</div>
+            <a href="{{ route('user.presensi.pulang') }}" class="btn btn-light btn-sm mt-3 w-100 font-weight-bold rounded-pill text-success" style="position: relative; z-index: 2;">
+                <i class="fas fa-fingerprint mr-2"></i> Presensi Pulang
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="custom-card mt-2">
+    <div class="custom-card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 font-weight-bold"><i class="fas fa-history mr-2 text-primary"></i>Daftar Presensi Anda</h5>
+    </div>
+    <div class="custom-card-body">
+        <div class="table-responsive">
+            <table class="table custom-table table-hover table-striped w-100" id="presensi">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Jam Masuk</th>
+                        <th>Jam Keluar</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('js')
 <script src="{{ asset('vendor/datatables/datatables.min.js') }}"></script>
-@endpush
-
-@push('scripts')
 <script>
     $(document).ready(function () {
-       $('#absen').DataTable({
+       $('#presensi').DataTable({
             paging: true,
             processing: true,
             serverSide: true,
-            ajax: '{{ route('data.absen.pribadi') }}',
+            ajax: '{{ route('data.presensi.pribadi') }}',
             columns: [
                 { data: 'tanggal', name: 'tanggal' },
                 { data: 'jam_masuk', name: 'jam_masuk' },
@@ -24,57 +78,23 @@
             order: [[ 0, 'desc' ]],
             "columnDefs": [
                 { "searchable": false, "targets": [1,2] }
-            ]
+            ],
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Cari data...",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                zeroRecords: "Tidak ada data yang ditemukan",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                infoFiltered: "(disaring dari _MAX_ total data)",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
         });
      });
 </script>
-@endpush
-
-@section('konten')
-<div class="card">
-    <div class="card-header">Informasi</div>
-    <div class="card-body">
-        <marquee>
-            <p class="text-danger font-weight-bold font-italic">Mohon perhatikan kembali tanggal shift sebelum absen |
-                Jika ada kendala dengan aplikasi, silahkan hubungi administrator</p>
-        </marquee>
-        <div class="row mt-3">
-            <div class="col-md-6 col-lg-6">
-                <a class="btn btn-warning w-100" href="{{ route('user.absen.datang') }}">Datang</a>
-                <div class="statistic__item statistic__item--blue">
-                    <h2 class="number text-white">{{ $absendatang }} Kali</h2>
-                    <span class="desc text-white font-italic">Belum Absen Datang (Bulan Ini)</span>
-                    <div class="icon">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <a class="btn btn-warning w-100" href="{{ route('user.absen.pulang') }}">Pulang</a>
-                <div class="statistic__item statistic__item--green">
-                    <h2 class="number text-white">{{ $absenpulang }} Kali</h2>
-                    <span class="desc text-white font-italic">Belum Absen Pulang (Bulan Ini)</span>
-                    <div class="icon">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card mt-4">
-    <div class="card-header">Daftar Absen Anda</div>
-    <div class="card-body table-responsive-sm">
-        <table class="table table-bordered" id="absen">
-            <thead>
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Jam Masuk</th>
-                    <th>Jam Keluar</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-</div>
 @endsection

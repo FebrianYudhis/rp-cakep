@@ -18,9 +18,9 @@ Route::prefix('admin')->middleware(['kunciadmin'])->name('admin.')->group(functi
         Route::delete('/akun/{user:username}/hapus', [AdminController::class, 'hapusakun'])->name('hapus');
     });
 
-    Route::get('/absen', [AdminController::class, 'absen'])->name('absen');
-    Route::get('/absen/{absent}/edit', [AdminController::class, 'editabsen'])->name('absen.edit');
-    Route::put('/absen/{absent}/edit', [AdminController::class, 'updateabsen']);
+    Route::get('/presensi', [AdminController::class, 'presensi'])->name('presensi');
+    Route::get('/presensi/{presensi}/edit', [AdminController::class, 'editpresensi'])->name('presensi.edit');
+    Route::put('/presensi/{presensi}/edit', [AdminController::class, 'updatepresensi']);
 
     Route::get('/formulir', [AdminController::class, 'formulir'])->name('formulir');
     Route::post('/formulir', [AdminController::class, 'generateformulir']);

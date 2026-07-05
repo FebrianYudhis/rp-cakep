@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absent;
+use App\Models\Presensi;
 use App\Models\User;
 use App\Models\Admin;
 use Carbon\Carbon;
@@ -21,9 +21,9 @@ class AdminController extends Controller
             'aktif' => 'dashboard',
             'akun' => Auth::guard('admin')->user(),
             'jumlahakun' => User::count(),
-            'jumlahabsen' => Absent::count(),
-            'absendatang' => Absent::whereNull('jam_masuk')->count(),
-            'absenpulang' => Absent::whereNull('jam_keluar')->count(),
+            'jumlahpresensi' => Presensi::count(),
+            'presensidatang' => Presensi::whereNull('jam_masuk')->count(),
+            'presensipulang' => Presensi::whereNull('jam_keluar')->count(),
         ];
         return view('admin.dashboard', $data);
     }
@@ -106,77 +106,77 @@ class AdminController extends Controller
         return redirect()->route('admin.akun');
     }
 
-    public function absen()
+    public function presensi()
     {
         if (request('mulai') && request('sampai') && request('nama')) {
-            $query = Absent::with('user')->where('tanggal', '>=', request('mulai'))->where('tanggal', '<=', request('sampai'))->where('user_id', request('nama'))->get();
+            $query = Presensi::with('user')->where('tanggal', '>=', request('mulai'))->where('tanggal', '<=', request('sampai'))->where('user_id', request('nama'))->get();
         } elseif (request('mulai') && request('sampai')) {
-            $query = Absent::with('user')->where('tanggal', '>=', request('mulai'))->where('tanggal', '<=', request('sampai'))->get();
+            $query = Presensi::with('user')->where('tanggal', '>=', request('mulai'))->where('tanggal', '<=', request('sampai'))->get();
         } elseif (request('mulai')) {
-            $query = Absent::with('user')->where('tanggal', request('mulai'))->get();
+            $query = Presensi::with('user')->where('tanggal', request('mulai'))->get();
         } elseif (request('nama')) {
-            $query = Absent::with('user')->where('user_id', request('nama'))->get();
+            $query = Presensi::with('user')->where('user_id', request('nama'))->get();
         } else {
-            $query = Absent::with('user')->limit(40)->get();
+            $query = Presensi::with('user')->limit(40)->get();
         }
 
         $data = [
-            'judul' => 'List Absen',
-            'aktif' => 'absen',
+            'judul' => 'List Presensi',
+            'aktif' => 'presensi',
             'akun' => Auth::guard('admin')->user(),
             'data' => $query,
             'nama' => User::where('status', 1)->get()
         ];
-        return view('admin.absen', $data);
+        return view('admin.presensi', $data);
     }
 
-    public function editabsen(Absent $absent)
+    public function editpresensi(Presensi $presensi)
     {
-        if ($absent->jam_masuk == null) {
-            $absent->jam_masuk = null;
+        if ($presensi->jam_masuk == null) {
+            $presensi->jam_masuk = null;
         } else {
-            $absent->jam_masuk = Carbon::parse($absent->jam_masuk)->format("Y-m-d\TH:i");
+            $presensi->jam_masuk = Carbon::parse($presensi->jam_masuk)->format("Y-m-d\TH:i");
         }
 
-        if ($absent->jam_keluar == null) {
-            $absent->jam_keluar = null;
+        if ($presensi->jam_keluar == null) {
+            $presensi->jam_keluar = null;
         } else {
-            $absent->jam_keluar = Carbon::parse($absent->jam_keluar)->format("Y-m-d\TH:i");
+            $presensi->jam_keluar = Carbon::parse($presensi->jam_keluar)->format("Y-m-d\TH:i");
         }
 
         $data = [
-            'judul' => 'Edit Absen',
-            'aktif' => 'absen',
+            'judul' => 'Edit Presensi',
+            'aktif' => 'presensi',
             'akun' => Auth::guard('admin')->user(),
-            'data' => $absent->load('user'),
+            'data' => $presensi->load('user'),
         ];
-        return view('admin.editabsen', $data);
-        dd($absent->jam_keluar);
+        return view('admin.editpresensi', $data);
+        dd($presensi->jam_keluar);
     }
 
-    public function updateabsen(Absent $absent)
+    public function updatepresensi(Presensi $presensi)
     {
         if (request('jam_masuk') == null) {
-            $absent->jam_masuk = null;
+            $presensi->jam_masuk = null;
         } else {
-            $absent->jam_masuk = Carbon::parse(request('jam_masuk'))->toDateTime();
+            $presensi->jam_masuk = Carbon::parse(request('jam_masuk'))->toDateTime();
         }
 
         if (request('jam_keluar') == null) {
-            $absent->jam_keluar = null;
+            $presensi->jam_keluar = null;
         } else {
-            $absent->jam_keluar = Carbon::parse(request('jam_keluar'))->toDateTime();
+            $presensi->jam_keluar = Carbon::parse(request('jam_keluar'))->toDateTime();
         }
 
-        $absent->save();
-        Alert::success('Berhasil', 'Berhasil Mengubah Absen ' . '\'' . $absent->user->username . '\'' . ' Pada Tanggal ' . $absent->tanggal);
-        return redirect()->route('admin.absen');
+        $presensi->save();
+        Alert::success('Berhasil', 'Berhasil Mengubah Presensi ' . '\'' . $presensi->user->username . '\'' . ' Pada Tanggal ' . $presensi->tanggal);
+        return redirect()->route('admin.presensi');
     }
 
     public function formulir()
     {
         $data = [
-            'judul' => 'Generate Formulir Absen',
+            'judul' => 'Generate Formulir Presensi',
             'aktif' => 'formulir',
             'akun' => Auth::guard('admin')->user(),
             'user' => User::all()
@@ -201,7 +201,7 @@ class AdminController extends Controller
         $isi = [];
         for ($i = 1; $i <= $perbedaan; $i++) {
             $tanggal = $dates[$i - 1];
-            $cari = User::find($id)->absents->where('tanggal', $tanggal)->toArray();
+            $cari = User::find($id)->presensi->where('tanggal', $tanggal)->toArray();
 
             if ($cari != NULL) {
                 foreach ($cari as $data) {
@@ -242,7 +242,7 @@ class AdminController extends Controller
                 array_push($isi, $tambah);
             }
         }
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('Absen.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('Presensi.docx');
         $templateProcessor->setValue('nama', $nama->nama);
         $templateProcessor->setValue('nrp', $nama->no_identity);
         $templateProcessor->cloneRowAndSetValues('i', $isi);

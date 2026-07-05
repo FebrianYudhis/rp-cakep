@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absent;
+use App\Models\Presensi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -19,8 +19,8 @@ class AppController extends Controller
             'judul' => 'Dashboard User',
             'aktif' => 'dashboard',
             'akun' => Auth::guard('user')->user(),
-            'absendatang' => Absent::where('user_id', Auth::guard('user')->user()->id)->where('tanggal', '>=', Carbon::now()->subMonth()->lastOfMonth())->whereNull('jam_masuk')->count(),
-            'absenpulang' => Absent::where('user_id', Auth::guard('user')->user()->id)->where('tanggal', '>=', Carbon::now()->subMonth()->lastOfMonth())->whereNull('jam_keluar')->count(),
+            'presensidatang' => Presensi::where('user_id', Auth::guard('user')->user()->id)->where('tanggal', '>=', Carbon::now()->subMonth()->lastOfMonth())->whereNull('jam_masuk')->count(),
+            'presensipulang' => Presensi::where('user_id', Auth::guard('user')->user()->id)->where('tanggal', '>=', Carbon::now()->subMonth()->lastOfMonth())->whereNull('jam_keluar')->count(),
         ];
         return view('app.dashboard', $data);
     }
@@ -70,108 +70,106 @@ class AppController extends Controller
         }
     }
 
-    public function absendatang()
+    public function presensidatang()
     {
         $data = [
-            'judul' => 'Absen Datang',
-            'aktif' => 'absen',
+            'judul' => 'Presensi Datang',
+            'aktif' => 'presensi',
             'akun' => Auth::guard('user')->user(),
             'jam' => Carbon::now(),
             'tanggal' => Carbon::now()->format('Y-m-d')
         ];
-        return view('app.absen.datang', $data);
+        return view('app.presensi.datang', $data);
     }
 
-    public function catatabsendatang(Request $request)
+    public function catatpresensidatang(Request $request)
     {
         $request->validate([
             'tanggal' => 'required|date|before:' . Carbon::now()->addDay()->toDateString() . '|after:' . Carbon::now()->subDays(2)->toDateString()
         ]);
 
-        $cek = Absent::where('tanggal', request('tanggal'))->where('user_id', Auth::guard('user')->user()->id);
+        $cek = Presensi::where('tanggal', request('tanggal'))->where('user_id', Auth::guard('user')->user()->id);
 
         if ($cek->count() > 0) {
-            $absen = $cek->where('jam_masuk', null)->first();
+            $presensi = $cek->where('jam_masuk', null)->first();
 
-            if ($absen != null) {
-                $absen->jam_masuk = Carbon::now();
-                $absen->save();
-                Alert::success('Berhasil', 'Absen Masuk Berhasil');
+            if ($presensi != null) {
+                $presensi->jam_masuk = Carbon::now();
+                $presensi->save();
+                Alert::success('Berhasil', 'Presensi Masuk Berhasil');
                 return redirect()->route('user.dashboard');
             } else {
-                if (isset($request->tetapPresensi)) {
-                    Absent::create([
+                if ($request->tetapPresensi) {
+                    Presensi::create([
                         'user_id' => Auth::guard('user')->user()->id,
                         'tanggal' => request('tanggal'),
-                        'jam_masuk' => Carbon::now()
+                        'jam_masuk' => Carbon::now(),
                     ]);
-                    Alert::success('Berhasil', 'Absen Masuk Berhasil');
+                    Alert::success('Berhasil', 'Presensi Masuk Berhasil');
                     return redirect()->route('user.dashboard');
                 } else {
-                    Alert::error('Absen Ditolak', 'Anda Sudah Absen');
-                    return redirect()->route('user.dashboard');
+                    return redirect()->back()->with('presensi_sudah_ada', true);
                 }
             }
         } else {
-            Absent::create([
+            Presensi::create([
                 'user_id' => Auth::guard('user')->user()->id,
                 'tanggal' => request('tanggal'),
                 'jam_masuk' => Carbon::now()
             ]);
-            Alert::success('Berhasil', 'Absen Masuk Berhasil');
+            Alert::success('Berhasil', 'Presensi Masuk Berhasil');
             return redirect()->route('user.dashboard');
         }
     }
 
-    public function absenpulang()
+    public function presensipulang()
     {
         $data = [
-            'judul' => 'Absen Pulang',
-            'aktif' => 'absen',
+            'judul' => 'Presensi Pulang',
+            'aktif' => 'presensi',
             'akun' => Auth::guard('user')->user(),
             'jam' => Carbon::now(),
             'tanggal' => Carbon::now()->format('Y-m-d')
         ];
-        return view('app.absen.pulang', $data);
+        return view('app.presensi.pulang', $data);
     }
 
-    public function catatabsenpulang(Request $request)
+    public function catatpresensipulang(Request $request)
     {
         $request->validate([
             'tanggal' => 'required|date|before:' . Carbon::now()->addDay()->toDateString() . '|after:' . Carbon::now()->subDays(2)->toDateString()
         ]);
 
-        $cek = Absent::where('tanggal', request('tanggal'))->where('user_id', Auth::guard('user')->user()->id);
+        $cek = Presensi::where('tanggal', request('tanggal'))->where('user_id', Auth::guard('user')->user()->id);
 
         if ($cek->count() > 0) {
-            $absen = $cek->where('jam_keluar', null)->first();
+            $presensi = $cek->where('jam_keluar', null)->first();
 
-            if ($absen != null) {
-                $absen->jam_keluar = Carbon::now();
-                $absen->save();
-                Alert::success('Berhasil', 'Absen Pulang Berhasil');
+            if ($presensi != null) {
+                $presensi->jam_keluar = Carbon::now();
+                $presensi->save();
+                Alert::success('Berhasil', 'Presensi Pulang Berhasil');
                 return redirect()->route('user.dashboard');
             } else {
-                if (isset($request->tetapPresensi)) {
-                    Absent::create([
+                if ($request->tetapPresensi) {
+                    Presensi::create([
                         'user_id' => Auth::guard('user')->user()->id,
                         'tanggal' => request('tanggal'),
-                        'jam_keluar' => Carbon::now()
+                        'jam_keluar' => Carbon::now(),
                     ]);
-                    Alert::success('Berhasil', 'Absen Pulang Berhasil');
+                    Alert::success('Berhasil', 'Presensi Pulang Berhasil');
                     return redirect()->route('user.dashboard');
                 } else {
-                    Alert::error('Absen Ditolak', 'Anda Sudah Absen');
-                    return redirect()->route('user.dashboard');
+                    return redirect()->back()->with('presensi_sudah_ada', true);
                 }
             }
         } else {
-            Absent::create([
+            Presensi::create([
                 'user_id' => Auth::guard('user')->user()->id,
                 'tanggal' => request('tanggal'),
                 'jam_keluar' => Carbon::now()
             ]);
-            Alert::success('Berhasil', 'Absen Pulang Berhasil');
+            Alert::success('Berhasil', 'Presensi Pulang Berhasil');
             return redirect()->route('user.dashboard');
         }
     }

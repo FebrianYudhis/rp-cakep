@@ -1,62 +1,80 @@
 @extends('layouts.auth')
 
 @section('konten')
-<h2 class="text-center">Silahkan Daftar</h2>
-<form class="mt-4" method="POST" action="{{ route('user.daftar') }}">
-    @csrf
-    <div class="row font-weight-bold">
-        <div class="col-lg-12">
-            <div class="form-group">
-                <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Anda" name="nama"
-                    value="{{ old('nama') }}" required>
-                @error('nama')
-                <div class="text-danger mt-2">{{ $message }}</div>
-                @enderror
+<div class="px-md-4">
+    <h3 class="font-weight-bold text-dark mb-1">Daftar Akun Baru</h3>
+    <p class="text-muted mb-4">Lengkapi formulir di bawah ini</p>
+
+    <form method="POST" action="{{ route('user.daftar') }}">
+        @csrf
+        
+        <div class="form-group mb-3">
+            <label class="form-label text-dark font-weight-bold">Nama Lengkap</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-light border-right-0"><i class="fas fa-id-badge text-muted"></i></span>
+                </div>
+                <input type="text" class="form-control custom-input border-left-0 pl-0" id="nama" placeholder="Masukkan Nama Lengkap" name="nama" value="{{ old('nama') }}" required>
+            </div>
+            @error('nama')
+            <div class="text-danger small mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label text-dark font-weight-bold">Username</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-light border-right-0"><i class="fas fa-user text-muted"></i></span>
+                </div>
+                <input type="text" class="form-control custom-input border-left-0 pl-0" id="username" placeholder="Masukkan Username" name="username" value="{{ old('username') }}" required>
+            </div>
+            @error('username')
+            <div class="text-danger small mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label text-dark font-weight-bold">Nomor Identitas (NIP/NIK)</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-light border-right-0"><i class="fas fa-id-card text-muted"></i></span>
+                </div>
+                <input type="text" class="form-control custom-input border-left-0 pl-0" id="noidentity" placeholder="Masukkan Nomor Identitas" name="noidentity" value="{{ old('noidentity') }}" required>
+            </div>
+            @error('noidentity')
+            <div class="text-danger small mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label text-dark font-weight-bold">Password</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-light border-right-0"><i class="fas fa-lock text-muted"></i></span>
+                </div>
+                <input type="password" class="form-control custom-input border-left-0 pl-0" id="password" placeholder="Buat Password" name="password" required>
+            </div>
+            @error('password')
+            <div class="text-danger small mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group mb-4">
+            <label class="form-label text-dark font-weight-bold">Konfirmasi Password</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-light border-right-0"><i class="fas fa-key text-muted"></i></span>
+                </div>
+                <input type="password" class="form-control custom-input border-left-0 pl-0" id="password_confirmation" placeholder="Ulangi Password" name="password_confirmation" required>
             </div>
         </div>
-        <div class="col-lg-12">
-            <div class="form-group">
-                <input type="text" class="form-control" id="username" placeholder="Masukkan Username" name="username"
-                    value="{{ old('username') }}" required>
-                @error('username')
-                <div class="text-danger mt-2">{{ $message }}</div>
-                @enderror
-            </div>
+
+        <button type="submit" class="btn btn-primary btn-block py-2 mt-2 font-weight-bold">DAFTAR SEKARANG</button>
+        
+        <div class="text-center mt-4">
+            <p class="text-muted mb-0">Sudah punya akun? <a href="{{ route('user.masuk') }}" class="text-primary font-weight-bold text-decoration-none">Masuk di sini</a></p>
         </div>
-        <div class="col-lg-12">
-            <div class="form-group">
-                <input type="text" class="form-control" id="noidentity" placeholder="Masukkan Nomor Identitas" name="noidentity"
-                    value="{{ old('noidentity') }}" required>
-                @error('noidentity')
-                <div class="text-danger mt-2">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="form-group">
-                <input type="password" class="form-control" id="password" placeholder="Masukkan Password Anda"
-                    name="password" value="{{ old('password') }}" required>
-                @error('password')
-                <div class="text-danger mt-2">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="form-group">
-                <input type="password" class="form-control" id="password_confirmation"
-                    placeholder="Konfirmasi Password Anda" name="password_confirmation"
-                    value="{{ old('password_confirmation') }}" required>
-                @error('password_confirmation')
-                <div class="text-danger mt-2">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-12 text-center">
-            <button type="submit" class="btn btn-block btn-dark">Daftar</button>
-        </div>
-        <div class="col-lg-12 text-center mt-5">
-            Sudah Punya Akun ? <a href="{{ route('user.masuk') }}" class="text-danger">Masuk</a>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 @endsection

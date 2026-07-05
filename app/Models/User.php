@@ -26,8 +26,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function absents()
+    public function presensi()
     {
-        return $this->hasMany(Absent::class);
+        return $this->hasMany(Presensi::class);
     }
 }

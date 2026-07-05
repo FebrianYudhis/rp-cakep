@@ -11,11 +11,11 @@ Route::prefix('app')->middleware(['kunciapp', 'cekakun'])->name('user.')->group(
     Route::get('/ganti-password', [AppController::class, 'gantipassword'])->name('gantipassword');
     Route::post('/ganti-password', [AppController::class, 'gantipasswordpost']);
 
-    Route::name('absen.')->group(function () {
-        Route::get('/absen-datang', [AppController::class, 'absendatang'])->name('datang');
-        Route::put('/absen-datang', [AppController::class, 'catatabsendatang']);
+    Route::name('presensi.')->group(function () {
+        Route::get('/presensi-datang', [AppController::class, 'presensidatang'])->name('datang');
+        Route::put('/presensi-datang', [AppController::class, 'catatpresensidatang']);
 
-        Route::get('/absen-pulang', [AppController::class, 'absenpulang'])->name('pulang');
-        Route::put('/absen-pulang', [AppController::class, 'catatabsenpulang']);
+        Route::get('/presensi-pulang', [AppController::class, 'presensipulang'])->name('pulang');
+        Route::put('/presensi-pulang', [AppController::class, 'catatpresensipulang']);
     });
 });
