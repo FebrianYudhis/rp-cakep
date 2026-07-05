@@ -19,8 +19,14 @@ class AppController extends Controller
             'judul' => 'Dashboard User',
             'aktif' => 'dashboard',
             'akun' => Auth::guard('user')->user(),
-            'presensidatang' => Presensi::where('user_id', Auth::guard('user')->user()->id)->where('tanggal', '>=', Carbon::now()->subMonth()->lastOfMonth())->whereNull('jam_masuk')->count(),
-            'presensipulang' => Presensi::where('user_id', Auth::guard('user')->user()->id)->where('tanggal', '>=', Carbon::now()->subMonth()->lastOfMonth())->whereNull('jam_keluar')->count(),
+            'presensidatang' => Presensi::where('user_id', Auth::guard('user')->id())
+                ->where('tanggal', '>=', Carbon::now()->startOfMonth()->toDateString())
+                ->whereNull('jam_masuk')
+                ->count(),
+            'presensipulang' => Presensi::where('user_id', Auth::guard('user')->id())
+                ->where('tanggal', '>=', Carbon::now()->startOfMonth()->toDateString())
+                ->whereNull('jam_keluar')
+                ->count(),
         ];
         return view('app.dashboard', $data);
     }

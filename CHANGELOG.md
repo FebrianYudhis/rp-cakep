@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-07-05
+### Fixed
+- Memperbaiki _logical bug_ pada _query_ penghitungan jumlah hari tidak presensi di halaman Dashboard User (mengubah `subMonth()->lastOfMonth()` menjadi `startOfMonth()->toDateString()`).
+
 ## [2.1.0] - 2026-07-05
 ### Added
 - Membuat desain *favicon* baru dengan latar belakang transparan.
