@@ -3,14 +3,12 @@
 @section('konten')
 <div class="row">
     <div class="col-md-6 col-lg-3 mb-4">
-        <div class="stat-card">
-            <div class="stat-card-icon bg-danger text-white">
+        <div class="stat-card stat-danger">
+            <div class="icon">
                 <i class="fas fa-users"></i>
             </div>
-            <div class="stat-card-info">
-                <div class="stat-card-title">Jumlah Akun</div>
-                <div class="stat-card-value">{{ $jumlahakun }} Data</div>
-            </div>
+            <div class="number">{{ $jumlahakun }}</div>
+            <div class="desc">Jumlah Akun</div>
         </div>
     </div>
     

@@ -10,7 +10,7 @@
                         <i class="fas fa-file-invoice fa-lg"></i>
                     </div>
                     <div>
-                        <h5 class="mb-0 font-weight-bold text-dark">Generate Formulir Presensisi</h5>
+                        <h5 class="mb-0 font-weight-bold text-dark">Generate Formulir Presensi</h5>
                         <p class="text-muted small mb-0">Buat laporan presensi berdasarkan rentang tanggal dan pegawai</p>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-light border-right-0"><i class="fas fa-user-tie text-muted"></i></span>
                             </div>
-                            <select class="form-control custom-input border-left-0 pl-0" id="nama" name="id" required>
+                            <select class="custom-select custom-input border-left-0 pl-0" id="nama" name="id" required>
                                 <option value="" disabled selected>-- Pilih Pegawai --</option>
                                 @foreach ($user as $u)
                                     <option value="{{ $u->id }}">{{ $u->nama }}</option>
@@ -57,7 +57,7 @@
                     </div>
                     
                     <button type="submit" class="btn btn-primary btn-block py-2 font-weight-bold rounded-pill shadow">
-                        <i class="fas fa-print mr-2"></i> BUAT laporan presensi
+                        <i class="fas fa-print mr-2"></i> Buat Laporan Presensi
                     </button>
                 </form>
             </div>

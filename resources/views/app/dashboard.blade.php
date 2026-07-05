@@ -9,7 +9,7 @@
     <i class="fas fa-info-circle fa-2x text-info mr-3"></i>
     <div>
         <h6 class="font-weight-bold mb-1">Informasi Penting</h6>
-        <p class="mb-0 small text-muted">Mohon perhatikan kembali tanggal shift seBelum Presensi. Jika ada kendala dengan aplikasi, silahkan hubungi administrator.</p>
+        <p class="mb-0 small text-muted">Mohon perhatikan kembali tanggal shift sebelum Presensi. Jika ada kendala dengan aplikasi, silahkan hubungi administrator.</p>
     </div>
 </div>
 

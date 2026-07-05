@@ -42,7 +42,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
         <div class="container-fluid px-lg-5">
-            <a class="navbar-brand navbar-brand-text d-flex align-items-center" href="#">
+            <a class="navbar-brand navbar-brand-text d-flex align-items-center" href="{{ $activeRole == 'Admin' ? route('admin.dashboard') : route('user.dashboard') }}">
                 <i class="fas fa-clock text-primary mr-2"></i> {{ env('APP_NAME', 'Aplikasi Presensi') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,9 +85,6 @@
     <!-- Main Content Area -->
     <main class="content-wrapper">
         <div class="container">
-            <div class="mb-4">
-                <h4 class="text-dark font-weight-bold">{{ $judul }}</h4>
-            </div>
             @yield('konten')
         </div>
     </main>

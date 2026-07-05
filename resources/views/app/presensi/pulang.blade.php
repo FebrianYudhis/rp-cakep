@@ -29,12 +29,17 @@
                         @enderror
                     </div>
                     
-                    <div class="custom-control custom-checkbox mb-4 bg-light p-3 rounded border">
-                        <input class="custom-control-input" type="checkbox" id="tetapPresensi" name="tetapPresensi">
-                        <label class="custom-control-label font-weight-bold ml-2 text-dark" style="margin-top:2px;" for="tetapPresensi">
-                            Tetap Presensi
-                        </label>
-                        <small class="d-block text-muted ml-4 mt-1">Centang jika Anda ingin tetap memaksa presensi di luar jadwal shift.</small>
+                    <div class="card border border-warning shadow-sm mb-4" style="border-radius: 12px; background-color: #fffdf5;">
+                        <div class="card-body p-3 d-flex align-items-center justify-content-between">
+                            <div class="mr-3">
+                                <h6 class="font-weight-bold text-dark mb-1"><i class="fas fa-exclamation-triangle text-warning mr-2"></i>Tetap Presensi</h6>
+                                <small class="text-muted">Aktifkan ini jika Anda ingin memaksa presensi di luar jadwal shift.</small>
+                            </div>
+                            <div class="custom-control custom-switch" style="transform: scale(1.3); margin-right: 10px;">
+                                <input type="checkbox" class="custom-control-input" id="tetapPresensi" name="tetapPresensi">
+                                <label class="custom-control-label" style="cursor: pointer;" for="tetapPresensi"></label>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="alert alert-info border-0 shadow-sm d-flex align-items-center mb-4">
@@ -47,7 +52,7 @@
                     </div>
                     
                     <button type="submit" class="btn btn-success btn-block py-2 font-weight-bold rounded-pill konfirmasi shadow">
-                        <i class="fas fa-fingerprint mr-2"></i> REKAM Presensi Pulang
+                        <i class="fas fa-fingerprint mr-2"></i> Rekam Presensi Pulang
                     </button>
                 </form>
             </div>

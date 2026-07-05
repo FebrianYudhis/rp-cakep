@@ -36,7 +36,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-light border-right-0"><i class="fas fa-user text-muted"></i></span>
                         </div>
-                        <select id="nama" class="form-control border-left-0 pl-0" name="nama">
+                        <select id="nama" class="custom-select border-left-0 pl-0" name="nama">
                             <option disabled selected>-- Pilih Pengguna --</option>
                             @foreach ($nama as $n)
                             <option value="{{ $n->id }}">{{ $n->username }}</option>

@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-07-05
+### Added
+- Membuat desain *favicon* baru dengan latar belakang transparan.
+
+### Changed
+- Menghilangkan *header* judul halaman ganda dari tata letak utama (`app.blade.php`) untuk tampilan yang lebih lapang.
+- Mengubah format huruf kapital penuh pada tombol-tombol konfirmasi menjadi format *Proper Case* agar lebih rapi.
+- Mengubah (*redesign*) kotak dialog peringatan "Tetap Presensi" menjadi desain panel yang lebih modern lengkap dengan *Toggle Switch*.
+
+### Fixed
+- Memperbaiki kerangka (layout) kolom pilihan Pegawai (Select Dropdown) pada filter data menggunakan `custom-select` di halaman Admin Presensi dan Formulir agar tampil penuh (*full-width*).
+- Memperbaiki *Stat Card* "Jumlah Akun" di halaman Dashboard Admin yang sebelumnya format HTML-nya rusak (tertinggal dari desain lama).
+- Memperbaiki kesalahan penulisan (typo) pada halaman "Generate Formulir Presensisi".
+
 ## [2.0.0] - 2026-07-05
 ### Changed
 - Merombak total desain antarmuka (UI) aplikasi menjadi lebih modern dan dinamis (Penambahan custom `redesign.css`).
